@@ -5,7 +5,7 @@
     </label>
     <div class="control">
       <div class="select is-fullwidth">
-        <select id="" name="">
+        <select :value="selectedVariationId" @change="changed($event, type)">
           <option value="">
             Please choose
           </option>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+/* eslint-disable vue/require-prop-types */
 export default {
   props: {
     type: {
@@ -35,6 +37,34 @@ export default {
     variations: {
       required: true,
       type: Array
+    },
+    value: {
+      required: false,
+      default() {
+        return ''
+      }
+    }
+  },
+  computed: {
+    selectedVariationId() {
+      if (!this.findVariation(this.value.id)) {
+        return ''
+      }
+      return this.value.id
+    }
+  },
+  methods: {
+    changed(event, type) {
+      this.$emit('input', this.findVariation(event.target.value))
+    },
+
+    findVariation(id) {
+      const variation = this.variations.find(v => v.id === parseInt(id))
+      if (typeof variation === 'undefined') {
+        return null
+      }
+
+      return variation
     }
   }
 }

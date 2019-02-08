@@ -26,9 +26,26 @@
               <product-variation
                 v-for="(variation, type) in product.variations"
                 :key="type"
+                v-model="form.variation"
                 :type="type"
                 :variations="variation"
               />
+              <div v-if="form.variation" class="field has-addons">
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select id="" name="">
+                      <option value="">
+                        1
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control">
+                  <button type="submit" class="button is-info">
+                    Add to cart
+                  </button>
+                </div>
+              </div>
             </form>
           </section>
         </div>
@@ -45,7 +62,12 @@ export default {
   },
   data() {
     return {
-      product: null
+      product: null,
+      form: {
+        // in vue if we assign init value for <select> as '' (empty string) then by default it will choose option with empty value
+        variation: '',
+        quantity: 1
+      }
     }
   },
   async asyncData({ params, app }) {
