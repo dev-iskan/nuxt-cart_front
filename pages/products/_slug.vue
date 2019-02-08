@@ -20,6 +20,17 @@
               {{ product.price }}
             </span>
           </section>
+
+          <section class="section">
+            <form action="">
+              <product-variation
+                v-for="(variation, type) in product.variations"
+                :key="type"
+                :type="type"
+                :variations="variation"
+              />
+            </form>
+          </section>
         </div>
       </div>
     </div>
@@ -27,7 +38,11 @@
 </template>
 
 <script>
+import ProductVariation from '@/components/products/ProductVariation'
 export default {
+  components: {
+    ProductVariation
+  },
   data() {
     return {
       product: null
