@@ -16,6 +16,10 @@
 
             <hr>
 
+            <span v-if="!product.in_stock" class="tag is-rounded is-medium is-dark">
+              Out of stock
+            </span>
+
             <span class="tag is-rounded is-medium">
               {{ product.price }}
             </span>
@@ -34,8 +38,8 @@
                 <div class="control">
                   <div class="select is-fullwidth">
                     <select id="" name="">
-                      <option value="">
-                        1
+                      <option v-for="x in parseInt(form.variation.stock_count)" :key="x" :value="x">
+                        {{ x }}
                       </option>
                     </select>
                   </div>
@@ -68,6 +72,11 @@ export default {
         variation: '',
         quantity: 1
       }
+    }
+  },
+  watch: {
+    'form.variation'() {
+      this.form.quantity = 1
     }
   },
   async asyncData({ params, app }) {
