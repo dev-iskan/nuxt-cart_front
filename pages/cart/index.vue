@@ -13,13 +13,13 @@
           <p v-else>
             Your cart is empty
           </p>
-          <a
+          <nuxt-link
             v-if="!empty"
-            href="#"
+            :to="{name: 'checkout'}"
             class="button is-fullwidth is-info is-medium"
           >
             Checkout
-          </a>
+          </nuxt-link>
         </div>
       </div>
     </div>
